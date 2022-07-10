@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Git checkout') {
            steps{
-                git branch: 'main', credentialsId: 'Github', url: 'https://github.com/apotitech/terraform-jenkins-ec2'
+                git branch: 'main', url: 'https://github.com/apotitech/terraform-jenkins-ec2'
             }
         }
         stage('terraform format check') {
