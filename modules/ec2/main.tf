@@ -6,7 +6,7 @@ provider "aws" {
 
 
 module "ec2_apotians" {
-  source  = "./terraform-aws-ec2-instance"
+  source  = "terraform-aws-modules/ec2-instance/aws"
 
 
   name = "apotians-instance"
