@@ -1,21 +1,26 @@
-data "aws_caller_identity" "current" {}
-
-data "aws_ami" "ec2_instance" {
-  most_recent = true
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["${data.aws_caller_identity.current.account_id}"]
+provider "aws" {
+  region     = "us-west-2"
+  access_key = "AKIATTPPUJKKIPL426WW"
+  secret_key = "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"
 }
 
-resource "aws_instance" "web" {
-  ami           = "${data.aws_ami.ec2_instance.id}"
-  instance_type = "t2.micro"
+
+module "ec2_apotians" {
+  source  = "./terraform-aws-ec2-instance"
+
+
+  name = "apotians-instance"
+
+  ami                    = "ami-098e42ae54c764c35"
+  instance_type          = "t2.micro"
+  key_name               = "abc123"
+  monitoring             = false
+  vpc_security_group_ids = ["sg-0a69fa7b9f7c32274"]
+  subnet_id              = "subnet-06a165f5032498bef"
 
   tags = {
-    Name = "EC2 Demo Instance"
+    Terraform   = "true"
+    Environment = "dev"
+    Name        = "Apotians"
   }
 }
